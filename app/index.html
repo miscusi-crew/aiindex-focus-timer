@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus Timer</title>
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="base.css">
+<style>
+  .modes{display:flex;gap:.25rem;padding:.25rem;border:1px solid var(--line);border-radius:.6rem;background:var(--card);width:max-content;max-width:100%}
+  .modes button{border:0;background:transparent}
+  .modes button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+  .clock{font-size:clamp(4rem,22vw,7rem);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:.5rem 0 0;line-height:1.1}
+  .bar{height:.4rem;border-radius:1rem;background:var(--line);overflow:hidden;margin:.5rem 0 1rem;max-width:26rem}
+  .bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+  .controls button{min-width:6.5rem;padding:.6rem 1rem}
+  details{margin-top:2rem}
+  summary{cursor:pointer;color:var(--muted)}
+  .settings{display:grid;grid-template-columns:repeat(3,minmax(0,8rem));gap:.75rem;margin-top:.75rem}
+  .settings label{display:grid;gap:.25rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>Focus Timer</h1>
+  <p class="sub">Focus, take a short break, repeat. Every fourth break is a long one.</p>
+  <div class="modes" role="group" aria-label="Timer mode">
+    <button data-mode="focus" aria-pressed="true">Focus</button>
+    <button data-mode="short" aria-pressed="false">Short break</button>
+    <button data-mode="long" aria-pressed="false">Long break</button>
+  </div>
+  <p class="clock" id="clock" role="timer" aria-live="off">25:00</p>
+  <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+  <div class="row controls">
+    <button id="toggle" class="primary">Start</button>
+    <button id="reset">Reset</button>
+    <button id="skip">Skip</button>
+  </div>
+  <div class="stats"><span>Focus sessions today <b id="done">0</b></span></div>
+  <p class="msg" id="msg" role="status"></p>
+  <details>
+    <summary>Lengths (minutes)</summary>
+    <div class="settings">
+      <label>Focus <input type="number" id="len-focus" min="1" max="120" value="25"></label>
+      <label>Short break <input type="number" id="len-short" min="1" max="60" value="5"></label>
+      <label>Long break <input type="number" id="len-long" min="1" max="90" value="15"></label>
+    </div>
+  </details>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
